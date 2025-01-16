@@ -3,7 +3,7 @@ import { FaLocationDot } from "react-icons/fa6";
 
 function Footer() {
   return (
-    <footer className="bg-[#2f4021] text-white pb-10">
+    <footer className="bg-[#2f4021] text-white pb-10 mt-[15vh]">
       <div className="footer border-base-300 border-t px-10 py-4">
         <aside className="">
          <h1  className="text-3xl font-bold text-[#AFD275]">
@@ -71,7 +71,7 @@ function Footer() {
               <input
                 type="text"
                 placeholder="username@site.com"
-                className="input input-bordered join-item"
+                className="input input-bordered join-item text-black"
               />
               <button className="btn bg-[#afd275] text-white hover:bg-[#2f4021] join-item">Subscribe</button>
             </div>
