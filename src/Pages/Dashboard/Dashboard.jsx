@@ -5,7 +5,7 @@ import { IoMdMenu } from "react-icons/io";
 
 function Dashboard() {
   const isAdmin = false;
-  const isTutor = false;
+  const isTutor = true;
   return (
     <div className="max-w-7xl mx-auto">
       <div className="drawer lg:drawer-open">

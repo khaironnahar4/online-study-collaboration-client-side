@@ -12,6 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import CreateNote from "../Pages/SudentDashboard/Notes/CreateNote";
 import ManageNote from "../Pages/SudentDashboard/Notes/ManageNote";
 import UpdateNote from "../Pages/SudentDashboard/Notes/UpdateNote";
+import CreateStudySession from "../Pages/TutorDashboard/CreateStudySession/CreateStudySession";
 
   const router = createBrowserRouter([
     {
@@ -58,6 +59,11 @@ import UpdateNote from "../Pages/SudentDashboard/Notes/UpdateNote";
           path: "update-note/:id",
           element: <UpdateNote></UpdateNote>,
           loader: ({params}) => fetch(`http://localhost:5000/notes?id=${params.id}`)
+        },
+        // tutor
+        {
+          path: "create-study-session",
+          element: <CreateStudySession></CreateStudySession>
         }
       ]
     }
