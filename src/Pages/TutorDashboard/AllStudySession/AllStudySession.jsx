@@ -8,34 +8,38 @@ import { useEffect, useState } from "react";
 function AllStudySession() {
   // const courses = [];
   const [status, setStatus] = useState("");
+  const [courses, setCourses] = useState([]);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: courses = [], refetch } = useQuery({
-    queryKey: ["studySession", user.email],
-    queryFn: async () => {
-    //   console.log(status);
-      const res = await axiosSecure.get(
-        `/study-sessions?email=${user?.email}&&status=${status}`
-      );
-      return res.data;
-    },
-  });
+  //   const { data: courses = [], refetch } = useQuery({
+  //     queryKey: ["studySession", user.email],
+  //     queryFn: async () => {
+  //       console.log(status);
+  //       const res = await axiosSecure.get(
+  //         `/study-sessions?email=${user?.email}&&status=${status}`
+  //       );
+  //       return res.data;
+  //     },
+  //   });
 
-//   useEffect(()=>{
-    
-//   }, [])
+  useEffect( () => {
+    axiosSecure.get(`/study-sessions?email=${user?.email}&&status=${status}`)
+    .then(res => {
+        setCourses(res.data);
+    })
+  }, [axiosSecure, user?.email, status]);
 
   //   axiosSecure.patch(`/study-sessions`, data).then((res) => {
   //     console.log(res.data);
   //   });
 
   const handleStatus = (data) => {
-      console.log(data.target.value);
-      const input = data.target.value;
-      if(input === "All Study Session") setStatus(" ");
-      if(input === "Approved") setStatus("approved");
-      if(input === "Pending") setStatus("pending");
-      if(input === "Rejected") setStatus("rejected");
+    console.log(data.target.value);
+    const input = data.target.value;
+    if (input === "All Study Session") setStatus("");
+    if (input === "Approved") setStatus("approved");
+    if (input === "Pending") setStatus("pending");
+    if (input === "Rejected") setStatus("rejected");
     // setStatus(data);
     // console.log(status);
 
@@ -68,11 +72,11 @@ function AllStudySession() {
         </ul>
       </details> */}
 
-      <select onChange={handleStatus} 
-      className="select select-bordered btn m-1 mb-6 mt-[8vh]">
-        <option selected>
-          All Study Session
-        </option>
+      <select
+        onChange={handleStatus}
+        className="select select-bordered btn m-1 mb-6 mt-[8vh]"
+      >
+        <option selected>All Study Session</option>
         <option>Approved</option>
         <option>Pending</option>
         <option>Rejected</option>
