@@ -30,19 +30,19 @@ function CreateStudySession() {
       sessionDuration: data.duration ,
       registrationFee: 0,
     };
-    console.log(studySession);
-    //   axiosSecure.post("/study-sessions", studySession).then((res) => {
-    //     if (res.data.insertedId) {
-    //       Swal.fire({
-    //         position: "top-end",
-    //         icon: "success",
-    //         title: "Your notes uploaded",
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //       });
-    //     }
-    //     reset();
-    //   });
+    // console.log(studySession);
+      axiosSecure.post("/study-sessions", studySession).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your notes uploaded",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+        reset();
+      });
     
     reset();
 };

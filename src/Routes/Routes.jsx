@@ -13,6 +13,7 @@ import CreateNote from "../Pages/SudentDashboard/Notes/CreateNote";
 import ManageNote from "../Pages/SudentDashboard/Notes/ManageNote";
 import UpdateNote from "../Pages/SudentDashboard/Notes/UpdateNote";
 import CreateStudySession from "../Pages/TutorDashboard/CreateStudySession/CreateStudySession";
+import AllStudySession from "../Pages/TutorDashboard/AllStudySession/AllStudySession";
 
   const router = createBrowserRouter([
     {
@@ -64,6 +65,10 @@ import CreateStudySession from "../Pages/TutorDashboard/CreateStudySession/Creat
         {
           path: "create-study-session",
           element: <CreateStudySession></CreateStudySession>
+        },
+        {
+          path: "all-study-session",
+          element: <AllStudySession></AllStudySession>
         }
       ]
     }

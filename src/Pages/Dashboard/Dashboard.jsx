@@ -111,7 +111,7 @@ function Dashboard() {
 
                 <li className="my-3">
                   <NavLink
-                    to={"/dashboard/tutor-all-study-session"}
+                    to={"/dashboard/all-study-session"}
                     className={`${({ isActive }) =>
                       isActive ? "active" : ""}`}
                   >
