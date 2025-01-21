@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
-import useAuth from "../../../Auth/UseAuth/useAuth";
-import SectionTitle from "../../../Components/SectionTitle";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+// import useAuth from "../../../Auth/UseAuth/useAuth";
 import Swal from "sweetalert2";
+import SectionTitle from "../../../Components/SectionTitle";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
-function CreateStudySession() {
-  const { user } = useAuth();
+function UpdateStudySession() {
+  const studySessionData = useLoaderData();
   const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,43 +17,50 @@ function CreateStudySession() {
     formState: { errors },
   } = useForm();
 
+  console.log(studySessionData);
+
   const handleFormSubmit = (data) => {
     // console.log(data);
-    const studySession = {
+    const studySessionUpdatedData = {
       sessionTitle: data.title,
-      tutorName: user?.displayName,
-      tutorEmail: user?.email,
-      averageRating: 5,
-      sessionDescription: data.desciption ,
-      registrationStartDate: data.registrationStart ,
-      registrationEndDate: data.registrationEnd ,
-      classStartTime: data.classStart ,
-      classEndTime: data.classEnd ,
-      sessionDuration: data.duration ,
-      registrationFee: 0,
-      status: 'pending'
+      //   tutorName: user?.displayName,
+      //   tutorEmail: user?.email,
+      //   averageRating: 5,
+      sessionDescription: data.desciption,
+      registrationStartDate: data.registrationStart,
+      registrationEndDate: data.registrationEnd,
+      classStartTime: data.classStart,
+      classEndTime: data.classEnd,
+      sessionDuration: data.duration,
+      registrationFee: data.registrationFee,
+      status: "approved"
     };
     // console.log(studySession);
-      axiosSecure.post("/study-sessions", studySession).then((res) => {
+    axiosSecure
+      .patch(
+        `/study-sessions?id=${studySessionData[0]._id}`,
+        studySessionUpdatedData
+      )
+      .then((res) => {
         if (res.data.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your study session has been uploaded",
+            title: "Session has been uploaded",
             showConfirmButton: false,
             timer: 1500,
           });
         }
         reset();
+        navigate('/dashboard/all-study-session-admin');
       });
-    
-    reset();
-};
+  };
+
   return (
     <div className="mb-12">
       <SectionTitle
-        heading={`Welcome ${user.displayName}`}
-        subHeading="Create Study Session"
+        heading={`Update Page`}
+        subHeading="Update The Study Session"
         //   btnText="Explore Courses"
       ></SectionTitle>
 
@@ -61,19 +70,29 @@ function CreateStudySession() {
           className="flex flex-col"
         >
           {/* name */}
-          <input
-            value={user?.displayName}
-            type="text"
-            className="input input-bordered w-full my-4"
-            readOnly
-          />
+          <label className="form-control w-full my-4">
+            <div className="label">
+              <span className="label-text">Tutor Name</span>
+            </div>
+            <input
+              value={studySessionData[0].tutorName}
+              type="text"
+              className="input input-bordered w-full my-4"
+              readOnly
+            />
+          </label>
           {/* email */}
-          <input
-            value={user?.email}
-            type="text"
-            className="input input-bordered w-full my-4"
-            readOnly
-          />
+          <label className="form-control w-full my-4">
+            <div className="label">
+              <span className="label-text">Tutor Email</span>
+            </div>
+            <input
+              value={studySessionData[0].tutorEmail}
+              type="text"
+              className="input input-bordered w-full my-4"
+              readOnly
+            />
+          </label>
           {/* title */}
 
           <label className="form-control w-full my-4">
@@ -83,6 +102,7 @@ function CreateStudySession() {
             <input
               {...register("title", { required: true })}
               type="text"
+              defaultValue={studySessionData[0].sessionTitle}
               placeholder="Title"
               className="input input-bordered w-full"
             />
@@ -100,6 +120,7 @@ function CreateStudySession() {
             </div>
             <textarea
               {...register("desciption", { required: true })}
+              defaultValue={studySessionData[0].sessionDescription}
               className="textarea textarea-bordered"
               placeholder="Notes"
             ></textarea>
@@ -120,6 +141,7 @@ function CreateStudySession() {
               <input
                 type="date"
                 {...register("registrationStart", { required: true })}
+                defaultValue={studySessionData[0].registrationStartDate}
                 placeholder="1/19/2025"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -137,6 +159,7 @@ function CreateStudySession() {
               <input
                 type="date"
                 {...register("registrationEnd", { required: true })}
+                defaultValue={studySessionData[0].registrationEndDate}
                 placeholder="1/27/2025"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -158,6 +181,7 @@ function CreateStudySession() {
               <input
                 type="text"
                 {...register("classStart", { required: true })}
+                defaultValue={studySessionData[0].classStartTime}
                 placeholder="12:00"
                 className="input input-bordered w-full"
               />
@@ -175,6 +199,7 @@ function CreateStudySession() {
               <input
                 type="text"
                 {...register("classEnd", { required: true })}
+                defaultValue={studySessionData[0].classEndTime}
                 placeholder="14:00"
                 className="input input-bordered w-full"
               />
@@ -188,21 +213,41 @@ function CreateStudySession() {
 
           {/* duration */}
           <label className="form-control w-full">
-              <div className="label">
-                <span className="label-text">Session Duration (in hour)</span>
-              </div>
-              <input
-                type="number"
-                {...register("duration", { required: true })}
-                placeholder="2"
-                className="input input-bordered w-full"
-              />
-              {errors.duration && (
-                <p role="alert" className="text-red-700">
-                  Please give session total duration.
-                </p>
-              )}
-            </label>
+            <div className="label">
+              <span className="label-text">Session Duration (in hour)</span>
+            </div>
+            <input
+              type="text"
+              {...register("duration", { required: true })}
+              defaultValue={studySessionData[0].sessionDuration}
+              placeholder="2"
+              className="input input-bordered w-full"
+            />
+            {errors.duration && (
+              <p role="alert" className="text-red-700">
+                Please give session total duration.
+              </p>
+            )}
+          </label>
+
+          {/* registration fee */}
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Registration Fee</span>
+            </div>
+            <input
+              type="number"
+              {...register("registrationFee", { required: true })}
+              defaultValue={studySessionData[0].registrationFee}
+              placeholder="15"
+              className="input input-bordered w-full"
+            />
+            {errors.duration && (
+              <p role="alert" className="text-red-700">
+                Please give session registration fee.
+              </p>
+            )}
+          </label>
 
           <div className="mt-6 w-full">
             {/* <Button text="Done"></Button> */}
@@ -216,4 +261,4 @@ function CreateStudySession() {
   );
 }
 
-export default CreateStudySession;
+export default UpdateStudySession;

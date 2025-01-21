@@ -14,6 +14,9 @@ import ManageNote from "../Pages/SudentDashboard/Notes/ManageNote";
 import UpdateNote from "../Pages/SudentDashboard/Notes/UpdateNote";
 import CreateStudySession from "../Pages/TutorDashboard/CreateStudySession/CreateStudySession";
 import AllStudySession from "../Pages/TutorDashboard/AllStudySession/AllStudySession";
+import AllUsers from "../Pages/Admin/AllUsers/AllUsers";
+import AllStudySessionAdmin from "../Pages/Admin/AllStudySession/AllStudySessionAdmin";
+import UpdateStudySession from "../Pages/Admin/UpdateStudySession/UpdateStudySession";
 
   const router = createBrowserRouter([
     {
@@ -69,6 +72,20 @@ import AllStudySession from "../Pages/TutorDashboard/AllStudySession/AllStudySes
         {
           path: "all-study-session",
           element: <AllStudySession></AllStudySession>
+        },
+        // admin
+        {
+          path: "all-users",
+          element: <AllUsers></AllUsers>
+        },
+        {
+          path: "all-study-session-admin",
+          element: <AllStudySessionAdmin></AllStudySessionAdmin>
+        },
+        {
+          path: "update-study-session/:id",
+          element: <UpdateStudySession></UpdateStudySession>,
+          loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
         }
       ]
     }

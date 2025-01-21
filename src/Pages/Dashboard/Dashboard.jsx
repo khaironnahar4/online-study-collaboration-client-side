@@ -4,8 +4,8 @@ import { FaList, FaWallet } from "react-icons/fa6";
 import { IoMdMenu } from "react-icons/io";
 
 function Dashboard() {
-  const isAdmin = false;
-  const isTutor = true;
+  const isAdmin = true;
+  const isTutor = false;
   return (
     <div className="max-w-7xl mx-auto">
       <div className="drawer lg:drawer-open">
@@ -57,7 +57,7 @@ function Dashboard() {
 
                 <li className="my-3">
                   <NavLink
-                    to={"/dashboard/all-user"}
+                    to={"/dashboard/all-users"}
                     className={`${({ isActive }) =>
                       isActive ? "active" : ""}`}
                   >
@@ -67,7 +67,7 @@ function Dashboard() {
 
                 <li className="my-3">
                   <NavLink
-                    to={"/dashboard/all-study-session"}
+                    to={"/dashboard/all-study-session-admin"}
                     className={`${({ isActive }) =>
                       isActive ? "active" : ""}`}
                   >

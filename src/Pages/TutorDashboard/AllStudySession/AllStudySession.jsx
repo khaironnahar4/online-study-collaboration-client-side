@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle";
-import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Auth/UseAuth/useAuth";
 import { useEffect, useState } from "react";
@@ -29,9 +28,7 @@ function AllStudySession() {
     })
   }, [axiosSecure, user?.email, status]);
 
-  //   axiosSecure.patch(`/study-sessions`, data).then((res) => {
-  //     console.log(res.data);
-  //   });
+
 
   const handleStatus = (data) => {
     console.log(data.target.value);
@@ -40,10 +37,7 @@ function AllStudySession() {
     if (input === "Approved") setStatus("approved");
     if (input === "Pending") setStatus("pending");
     if (input === "Rejected") setStatus("rejected");
-    // setStatus(data);
-    // console.log(status);
 
-    refetch();
   };
 
   return (
