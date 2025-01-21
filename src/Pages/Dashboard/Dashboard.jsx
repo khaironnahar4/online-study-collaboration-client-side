@@ -4,8 +4,8 @@ import { FaList, FaWallet } from "react-icons/fa6";
 import { IoMdMenu } from "react-icons/io";
 
 function Dashboard() {
-  const isAdmin = true;
-  const isTutor = false;
+  const isAdmin = false;
+  const isTutor = true;
   return (
     <div className="max-w-7xl mx-auto">
       <div className="drawer lg:drawer-open">
@@ -119,7 +119,7 @@ function Dashboard() {
                   </NavLink>
                 </li>
 
-                <li className="my-3">
+                {/* <li className="my-3">
                   <NavLink
                     to={"/dashboard/upload-metarials"}
                     className={`${({ isActive }) =>
@@ -127,7 +127,7 @@ function Dashboard() {
                   >
                     <FaShoppingCart /> Upload Metarials
                   </NavLink>
-                </li>
+                </li> */}
 
                 <li className="my-3">
                   <NavLink

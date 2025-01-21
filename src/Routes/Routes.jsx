@@ -17,6 +17,9 @@ import AllStudySession from "../Pages/TutorDashboard/AllStudySession/AllStudySes
 import AllUsers from "../Pages/Admin/AllUsers/AllUsers";
 import AllStudySessionAdmin from "../Pages/Admin/AllStudySession/AllStudySessionAdmin";
 import UpdateStudySession from "../Pages/Admin/UpdateStudySession/UpdateStudySession";
+import UploadMaterials from "../Pages/TutorDashboard/UploadMaterials/UploadMaterials";
+import AllMaterials from "../Pages/TutorDashboard/AllMaterials/AllMaterials";
+import UpdateMaterials from "../Pages/TutorDashboard/UpdateMaterials/UpdateMaterials";
 
   const router = createBrowserRouter([
     {
@@ -72,6 +75,20 @@ import UpdateStudySession from "../Pages/Admin/UpdateStudySession/UpdateStudySes
         {
           path: "all-study-session",
           element: <AllStudySession></AllStudySession>
+        },
+        {
+          path: "upload-materials/:id",
+          element: <UploadMaterials></UploadMaterials>,
+          loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
+        },
+        {
+          path: "tutor-all-metarials",
+          element: <AllMaterials></AllMaterials>
+        },
+        {
+          path: "update-materials/:id",
+          element: <UpdateMaterials></UpdateMaterials>,
+          loader: ({params}) => fetch(`http://localhost:5000/materials/single-material?id=${params.id}`)
         },
         // admin
         {

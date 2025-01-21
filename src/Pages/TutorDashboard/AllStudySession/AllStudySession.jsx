@@ -10,25 +10,15 @@ function AllStudySession() {
   const [courses, setCourses] = useState([]);
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  //   const { data: courses = [], refetch } = useQuery({
-  //     queryKey: ["studySession", user.email],
-  //     queryFn: async () => {
-  //       console.log(status);
-  //       const res = await axiosSecure.get(
-  //         `/study-sessions?email=${user?.email}&&status=${status}`
-  //       );
-  //       return res.data;
-  //     },
-  //   });
 
-  useEffect( () => {
-    axiosSecure.get(`/study-sessions?email=${user?.email}&&status=${status}`)
-    .then(res => {
+
+  useEffect(() => {
+    axiosSecure
+      .get(`/study-sessions?email=${user?.email}&&status=${status}`)
+      .then((res) => {
         setCourses(res.data);
-    })
+      });
   }, [axiosSecure, user?.email, status]);
-
-
 
   const handleStatus = (data) => {
     console.log(data.target.value);
@@ -37,7 +27,6 @@ function AllStudySession() {
     if (input === "Approved") setStatus("approved");
     if (input === "Pending") setStatus("pending");
     if (input === "Rejected") setStatus("rejected");
-
   };
 
   return (
@@ -49,22 +38,6 @@ function AllStudySession() {
           //   btnText="Explore Courses"
         ></SectionTitle>
       </div>
-
-      {/* dropdown */}
-      {/* <details className="dropdown mb-6 mt-[8vh]">
-        <summary className="btn m-1">All Study Session</summary>
-        <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-          <li>
-            <a onClick={() => handleStatus("approved")}>Approved</a>
-          </li>
-          <li>
-            <a onClick={() => handleStatus("pending")}>Pending</a>
-          </li>
-          <li>
-            <a onClick={() => handleStatus("rejected")}>Rejected</a>
-          </li>
-        </ul>
-      </details> */}
 
       <select
         onChange={handleStatus}
@@ -82,12 +55,6 @@ function AllStudySession() {
         {/* card */}
         {courses.map((course) => (
           <div key={course._id} className="card bg-base-100 shadow-xl">
-            {/* <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-            alt="Shoes"
-          />
-        </figure> */}
             <div className="card-body">
               <div className="badge bg-[#f37260] text-white py-4 px-5">
                 {course.status}
@@ -100,10 +67,17 @@ function AllStudySession() {
                 {/* <div className="badge badge-outline">Fashion</div> */}
                 <Link
                   to={`/study-session/${course._id}`}
-                  className="py-2 px-5 rounded-md bg-[#afd275] text-white font-semibold
-            cursor-pointer hover:bg-[#f37260]"
+                  className="py-2 px-5 rounded-md border-2 font-semibold
+                             cursor-pointer hover:bg-[#f37260]"
                 >
                   View Course
+                </Link>
+                <Link
+                  to={`/dashboard/upload-materials/${course._id}`}
+                  className="py-2 px-5 rounded-md bg-[#afd275] text-white font-semibold
+                             cursor-pointer hover:bg-[#f37260]"
+                >
+                  Upload Materials
                 </Link>
               </div>
             </div>
