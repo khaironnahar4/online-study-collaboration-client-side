@@ -2,10 +2,21 @@ import { FaCalendarAlt, FaHome, FaShoppingCart } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { FaList, FaWallet } from "react-icons/fa6";
 import { IoMdMenu } from "react-icons/io";
+// import { useQuery } from "@tanstack/react-query";
+import useAdmin from "../../Hooks/useAdmin";
+import useTutor from "../../Hooks/useTutor";
 
 function Dashboard() {
-  const isAdmin = false;
-  const isTutor = true;
+  const [isAdmin] = useAdmin();
+  const [isTutor] = useTutor();
+  
+
+  // const isAdmin = false;
+  // const isTutor = false;
+
+  // console.log(isAdmin, isTutor);
+  
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="drawer lg:drawer-open">
@@ -77,7 +88,7 @@ function Dashboard() {
 
                 <li className="my-3">
                   <NavLink
-                    to={"/dashboard/all-metarials"}
+                    to={"/dashboard/all-materials-admin"}
                     className={`${({ isActive }) =>
                       isActive ? "active" : ""}`}
                   >
@@ -100,14 +111,6 @@ function Dashboard() {
                   </li> */}
 
                 <li className="my-3">
-                  <NavLink
-                    to={"/dashboard/create-study-session"}
-                    className={`${({ isActive }) =>
-                      isActive ? "active" : ""}`}
-                  >
-                    <FaCalendarAlt /> Create Study Session
-                  </NavLink>
-                </li>
 
                 <li className="my-3">
                   <NavLink
@@ -116,6 +119,15 @@ function Dashboard() {
                       isActive ? "active" : ""}`}
                   >
                     <FaList /> All Study Sessions
+                  </NavLink>
+                </li>
+
+                  <NavLink
+                    to={"/dashboard/create-study-session"}
+                    className={`${({ isActive }) =>
+                      isActive ? "active" : ""}`}
+                  >
+                    <FaCalendarAlt /> Create Study Session
                   </NavLink>
                 </li>
 
@@ -172,15 +184,15 @@ function Dashboard() {
                   </NavLink>
                 </li>
 
-                <li className="my-3">
+                {/* <li className="my-3">
                   <NavLink
-                    to={"/dashboard/metarials"}
+                    to={"/dashboard/student-materials"}
                     className={`${({ isActive }) =>
                       isActive ? "active" : ""}`}
                   >
                     <FaShoppingCart /> Materials
                   </NavLink>
-                </li>
+                </li> */}
               </>
             )}
 

@@ -20,6 +20,11 @@ import UpdateStudySession from "../Pages/Admin/UpdateStudySession/UpdateStudySes
 import UploadMaterials from "../Pages/TutorDashboard/UploadMaterials/UploadMaterials";
 import AllMaterials from "../Pages/TutorDashboard/AllMaterials/AllMaterials";
 import UpdateMaterials from "../Pages/TutorDashboard/UpdateMaterials/UpdateMaterials";
+import AllMaterialsInAdmin from "../Pages/Admin/AllMaterialsInAdmin/AllMaterialsInAdmin";
+import StudentMaterials from "../Pages/SudentDashboard/StudentMaterials/StudentMaterials";
+import AllCourses from "../Pages/AllCourses/AllCourses";
+import TutorPrivateRoute from "./TutorPrivateRoute";
+import AdminPivateRoute from "./AdminPivateRoute";
 
   const router = createBrowserRouter([
     {
@@ -42,6 +47,10 @@ import UpdateMaterials from "../Pages/TutorDashboard/UpdateMaterials/UpdateMater
           path: "/study-session/:id",
           element: <PrivateRoute><SingleSessionStudy></SingleSessionStudy></PrivateRoute>,
           loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
+        },
+        {
+          path: "/all-courses",
+          element: <AllCourses></AllCourses>
         }
       ]
     },
@@ -67,42 +76,52 @@ import UpdateMaterials from "../Pages/TutorDashboard/UpdateMaterials/UpdateMater
           element: <UpdateNote></UpdateNote>,
           loader: ({params}) => fetch(`http://localhost:5000/notes?id=${params.id}`)
         },
+        {
+          path: "student-materials/:id",
+          element: <StudentMaterials></StudentMaterials>,
+          loader: ({params}) => fetch(`http://localhost:5000/materials?id=${params.id}`)
+        },
+
         // tutor
         {
           path: "create-study-session",
-          element: <CreateStudySession></CreateStudySession>
+          element: <TutorPrivateRoute><CreateStudySession></CreateStudySession></TutorPrivateRoute>
         },
         {
           path: "all-study-session",
-          element: <AllStudySession></AllStudySession>
+          element: <TutorPrivateRoute><AllStudySession></AllStudySession></TutorPrivateRoute>
         },
         {
           path: "upload-materials/:id",
-          element: <UploadMaterials></UploadMaterials>,
+          element: <TutorPrivateRoute><UploadMaterials></UploadMaterials></TutorPrivateRoute>,
           loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
         },
         {
           path: "tutor-all-metarials",
-          element: <AllMaterials></AllMaterials>
+          element: <TutorPrivateRoute><AllMaterials></AllMaterials></TutorPrivateRoute>
         },
         {
           path: "update-materials/:id",
-          element: <UpdateMaterials></UpdateMaterials>,
+          element: <TutorPrivateRoute><UpdateMaterials></UpdateMaterials></TutorPrivateRoute> ,
           loader: ({params}) => fetch(`http://localhost:5000/materials/single-material?id=${params.id}`)
         },
         // admin
         {
           path: "all-users",
-          element: <AllUsers></AllUsers>
+          element: <AdminPivateRoute><AllUsers></AllUsers></AdminPivateRoute>
         },
         {
           path: "all-study-session-admin",
-          element: <AllStudySessionAdmin></AllStudySessionAdmin>
+          element: <AdminPivateRoute><AllStudySessionAdmin></AllStudySessionAdmin></AdminPivateRoute>
         },
         {
           path: "update-study-session/:id",
-          element: <UpdateStudySession></UpdateStudySession>,
+          element: <AdminPivateRoute><UpdateStudySession></UpdateStudySession></AdminPivateRoute> ,
           loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
+        },
+        {
+          path: "all-materials-admin",
+          element: <AdminPivateRoute><AllMaterialsInAdmin></AllMaterialsInAdmin></AdminPivateRoute>
         }
       ]
     }

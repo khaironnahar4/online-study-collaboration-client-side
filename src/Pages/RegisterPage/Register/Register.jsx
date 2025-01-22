@@ -184,9 +184,9 @@ function Register() {
                 <option disabled selected>
                  Choose Your Role
                 </option>
-                <option>Student</option>
-                <option>Tutor</option>
-                <option>Admin</option>
+                <option>student</option>
+                <option>tutor</option>
+                <option>admin</option>
               </select>
             </div>
            </div>

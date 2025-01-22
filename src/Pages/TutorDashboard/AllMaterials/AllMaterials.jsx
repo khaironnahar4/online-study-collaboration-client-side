@@ -17,7 +17,7 @@ function AllMaterials() {
     },
   });
 
-  //   delete note
+  //   delete material
   const handleDeleteMaterial = (id) => {
     Swal.fire({
       title: "Are you sure?",

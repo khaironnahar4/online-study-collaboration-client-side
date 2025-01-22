@@ -5,11 +5,16 @@ import useAuth from "../../Auth/UseAuth/useAuth";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import Rating from "react-rating-stars-component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import useAdmin from "../../Hooks/useAdmin";
+import useTutor from "../../Hooks/useTutor";
 
 function SingleSessionStudy() {
+  const [disabled, setDisabled] = useState(false);
+  const [isAdmin] = useAdmin();
+  const [isTutor] = useTutor();
   const [rating, setRating] = useState(5);
   //   const [reviewData, setReviewData] = useState([]);
   const { user } = useAuth();
@@ -102,6 +107,11 @@ function SingleSessionStudy() {
 
   //   console.log(reviewData);
 
+  useEffect(()=>{
+    if(isAdmin) setDisabled(true);
+    if(isTutor) setDisabled(true);
+  } ,[isAdmin, isTutor])
+
   return (
     <div>
       {/* study card */}
@@ -122,8 +132,13 @@ function SingleSessionStudy() {
             <p>Registration Fee : {registrationFee}</p>
           </div>
           <div className="card-actions justify-center">
-            <span onClick={handleBookedSession}>
-              <Button text="Enroll Now"></Button>
+            <span>
+              <button onClick={handleBookedSession} 
+              disabled={disabled}
+              className={`py-3 px-6 bg-[#AFD275] text-[#2f4021] cursor-pointer
+               font-semibold rounded-md hover:text-[#AFD275] hover:bg-[#2f4021]
+                disabled:bg-white disabled:text-gray-400 disabled:border disabled:cursor-not-allowed`}
+              >Enroll Now</button>
             </span>
           </div>
         </div>

@@ -1,9 +1,22 @@
+import { useEffect, useState } from "react";
 import SectionTitle from "../../../Components/SectionTitle";
-import useTutors from "../../../Hooks/useTutors";
+import UseAxiosPublic from "../../../Hooks/UseAxiosPublic";
+// import useTutors from "../../../Hooks/useTutors";
 
 function TutorSection() {
-  const [tutors] = useTutors();
-  // console.log(tutors);
+  // const [tutors] = useTutors();
+  const [tutors, setTutors] = useState([]);
+  const axiosPublic = UseAxiosPublic()
+
+  useEffect(()=>{
+      axiosPublic.get('/users?role=tutor')
+      .then(res => {
+        setTutors(res.data)
+      })
+  }, [axiosPublic])
+
+
+  console.log(tutors);
 
   return (
     <div>

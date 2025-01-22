@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Auth/UseAuth/useAuth";
+// import Button from "../../Components/Button";
+import useAdmin from "../../Hooks/useAdmin"
+import useTutor from "../../Hooks/useTutor";
 
 function Navbar() {
   const { user, handleSignOut } = useAuth();
+  const [isAdmin] = useAdmin();
+  const [isTutor] = useTutor();
 
   return (
     <div className="navbar bg-base-100">
@@ -12,9 +17,14 @@ function Navbar() {
         </Link>
       </div>
       <div className="flex-none">
+        <Link to={'/all-courses'} 
+        className="me-4 font-semibold border-b-2 border-transparent 
+        hover:border-b-2 hover:text-[#afd275]">
+        All Courses
+        </Link>
         {user && user?.email ? (
           <>
-            <Link to={'/dashboard/student'}>
+            <Link to={`/dashboard/${isAdmin ? "all-users" : isTutor ? "all-study-session" : "student"}`}>
             <div
               tabIndex={0}
               role="button"

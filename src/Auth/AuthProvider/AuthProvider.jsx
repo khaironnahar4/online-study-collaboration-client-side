@@ -9,15 +9,14 @@ import {
 import { useEffect, useState } from "react"
 import auth from "../firebase.config";
 import AuthContext from "../AuthContext/AuthContext";
-// import useAxiosPublic from "../../Hooks/useAxiosPublic";
-
+import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
 
 
 
 function AuthProvider({children}) {
     const [user, setUser] = useState({});
     const [loader, setLoader] = useState(true);
-    // const axiosPublic = useAxiosPublic()
+    const axiosPublic = UseAxiosPublic()
 
     // sign-up
     const handleSignUp = (email, password)=>{
@@ -58,13 +57,27 @@ function AuthProvider({children}) {
         const unSubscribe = onAuthStateChanged(auth, currentUser =>{
             if(currentUser){
                 setUser(currentUser);
+                const userInfo = {email : currentUser.email};
+
+                axiosPublic.post('/jwt', userInfo)
+                .then(res => {
+                    console.log(res.data);
+                    
+                    if(res.data.token){
+                        localStorage.setItem('access-token' , res.data.token)
+                        setLoader(false);
+                    }
+                })
+
+            }else {
+                localStorage.removeItem('access-token');
                 setLoader(false);
             }
         })
 
         return ()=> unSubscribe()
 
-    }, [])
+    }, [axiosPublic])
 
     const authUser ={
         user,
