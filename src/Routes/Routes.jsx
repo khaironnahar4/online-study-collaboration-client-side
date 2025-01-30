@@ -46,7 +46,7 @@ import AdminPivateRoute from "./AdminPivateRoute";
         {
           path: "/study-session/:id",
           element: <PrivateRoute><SingleSessionStudy></SingleSessionStudy></PrivateRoute>,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/study-sessions?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
         },
         {
           path: "/all-courses",
@@ -74,12 +74,12 @@ import AdminPivateRoute from "./AdminPivateRoute";
         {
           path: "update-note/:id",
           element: <UpdateNote></UpdateNote>,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/notes?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/notes?id=${params.id}`)
         },
         {
           path: "student-materials/:id",
           element: <StudentMaterials></StudentMaterials>,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/materials?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/materials?id=${params.id}`)
         },
 
         // tutor
@@ -94,7 +94,7 @@ import AdminPivateRoute from "./AdminPivateRoute";
         {
           path: "upload-materials/:id",
           element: <TutorPrivateRoute><UploadMaterials></UploadMaterials></TutorPrivateRoute>,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/study-sessions?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
         },
         {
           path: "tutor-all-metarials",
@@ -103,7 +103,7 @@ import AdminPivateRoute from "./AdminPivateRoute";
         {
           path: "update-materials/:id",
           element: <TutorPrivateRoute><UpdateMaterials></UpdateMaterials></TutorPrivateRoute> ,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/materials/single-material?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/materials/single-material?id=${params.id}`)
         },
         // admin
         {
@@ -117,7 +117,7 @@ import AdminPivateRoute from "./AdminPivateRoute";
         {
           path: "update-study-session/:id",
           element: <AdminPivateRoute><UpdateStudySession></UpdateStudySession></AdminPivateRoute> ,
-          loader: ({params}) => fetch(`https://online-tech-server-side.vercel.app/study-sessions?id=${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/study-sessions?id=${params.id}`)
         },
         {
           path: "all-materials-admin",
