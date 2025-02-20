@@ -1,14 +1,14 @@
 import axios from "axios";
 import useAuth from "../Auth/UseAuth/useAuth";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "https://online-tech-server-side.vercel.app/",
 });
 
 function useAxiosSecure() {
   const {handleSignOut} = useAuth()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   // Add a request interceptor
   axiosSecure.interceptors.request.use(
@@ -33,7 +33,7 @@ function useAxiosSecure() {
       const status = error.response.status;
       if(status === 401 || status === 403){
        await handleSignOut();
-       navigate('/login')
+      //  navigate('/login')
       }
       // return Promise.reject(error);
     }

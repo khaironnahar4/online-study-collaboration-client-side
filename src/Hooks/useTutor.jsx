@@ -6,9 +6,10 @@ function useTutor() {
     const axiosSecure = useAxiosSecure();
     const {user} = useAuth()
   
-
-    const {data: isTutor = false}= useQuery({
+    
+     const {data: isTutor = false}= useQuery({
         queryKey: ["tutor"],
+        enabled: !!user?.email,
         queryFn: async ()=>{
           const res = await axiosSecure.get(`/users/tutor/${user?.email}`);
           return res.data.tutor;

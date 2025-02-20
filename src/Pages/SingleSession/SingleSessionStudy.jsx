@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import Button from "../../Components/Button";
 import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
 import useAuth from "../../Auth/UseAuth/useAuth";
@@ -41,7 +41,7 @@ function SingleSessionStudy() {
     registrationFee,
   } = studySessionData[0];
 
-  //   console.log(sessionTitle);
+    // console.log(typeof(registrationFee));
 
   const handleBookedSession = () => {
     const bookedSessionData = {
@@ -129,9 +129,17 @@ function SingleSessionStudy() {
               Class Time : {classStartTime} - {classEndTime}
             </p>
             <p>Registration End : {registrationEndDate}</p>
-            <p>Registration Fee : {registrationFee}</p>
+            <p>Registration Fee : ${registrationFee}</p>
           </div>
           <div className="card-actions justify-center">
+            {/* {
+              registrationFee == 0 && console.log("registration fee 0")
+            }{ 
+              registrationFee > 0 && console.log("registration fee more than 0")
+              
+            } */}
+            {
+              registrationFee == 0 ?
             <span>
               <button onClick={handleBookedSession} 
               disabled={disabled}
@@ -140,6 +148,17 @@ function SingleSessionStudy() {
                 disabled:bg-white disabled:text-gray-400 disabled:border disabled:cursor-not-allowed`}
               >Enroll Now</button>
             </span>
+            :
+            <span>
+              <Link to={`/payment/${_id}`}
+              disabled={disabled}
+              className={`py-3 px-6 bg-[#AFD275] text-[#2f4021] cursor-pointer
+               font-semibold rounded-md hover:text-[#AFD275] hover:bg-[#2f4021]
+                disabled:bg-white disabled:text-gray-400 disabled:border disabled:cursor-not-allowed`}
+              >Enroll Now</Link>
+            </span>
+
+            }
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ function Register() {
       }
     })
 
-    // console.log(res.data.data.display_url);
+    console.log(res.data.data.display_url);
     
     handleSignUp(data.email, data.password)
       .then((userCredential) => {
@@ -186,7 +186,7 @@ function Register() {
                 </option>
                 <option>student</option>
                 <option>tutor</option>
-                <option>admin</option>
+                {/* <option>admin</option> */}
               </select>
             </div>
            </div>

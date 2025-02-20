@@ -1,42 +1,52 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../Auth/UseAuth/useAuth";
 // import Button from "../../Components/Button";
-import useAdmin from "../../Hooks/useAdmin"
+import useAdmin from "../../Hooks/useAdmin";
 import useTutor from "../../Hooks/useTutor";
+import { useState } from "react";
 
 function Navbar() {
+  const [navOpen, setNavOpen] = useState(false);
   const { user, handleSignOut } = useAuth();
   const [isAdmin] = useAdmin();
   const [isTutor] = useTutor();
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar max-w-7xl mx-auto">
       <div className="flex-1">
         <Link to={"/"} className="text-2xl font-bold">
           <span className="font-bold text-4xl text-[#AFD275]">E</span>Learn
         </Link>
       </div>
       <div className="flex-none">
-        <Link to={'/all-courses'} 
-        className="me-4 font-semibold border-b-2 border-transparent 
-        hover:border-b-2 hover:text-[#afd275]">
-        All Courses
+       <div className="hidden sm:flex items-center">
+       <Link
+          to={"/all-courses"}
+          className="me-4 font-semibold border-b-2 border-transparent 
+        hover:border-b-2 hover:text-[#afd275]"
+        >
+          All Courses
         </Link>
         {user && user?.email ? (
           <>
-            <Link to={`/dashboard/${isAdmin ? "all-users" : isTutor ? "all-study-session" : "student"}`}>
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
+            <Link
+              to={`/dashboard/${
+                isAdmin
+                  ? "all-users"
+                  : isTutor
+                  ? "all-study-session"
+                  : "student"
+              }`}
             >
-              <div className="w-10 rounded-full">
-                <img
-                  alt={`${user?.name} photo`}
-                  src={user?.photoURL}
-                />
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img alt={`${user?.name} photo`} src={user?.photoURL} />
+                </div>
               </div>
-            </div>
             </Link>
 
             <button
@@ -49,9 +59,11 @@ function Navbar() {
         ) : (
           <>
             {/* login and sign up btn */}
-            <div className="dropdown dropdown-end font-semibold">
-              <Link to='/login' 
-              className="py-3 px-6 border border-black rounded-md hover:text-[#AFD275] hover:border-[#afd275]">
+            <div className="font-semibold flex flex-col sm:flex-row">
+              <Link
+                to="/login"
+                className="py-3 px-6 border border-black rounded-md hover:text-[#AFD275] hover:border-[#afd275]"
+              >
                 Login
               </Link>
               <Link
@@ -63,38 +75,85 @@ function Navbar() {
             </div>
           </>
         )}
+       </div>
 
-        {/* profile */}
-        {/* <div className="dropdown dropdown-end">
+        {/* mobile menu */}
+        <div className="flex flex-col sm:hidden">
+          {/* hamburger icon */}
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost btn-circle avatar"
+            className="menu-toggle cursor-pointer hover:bg-white rounded-full"
+            onClick={()=> setNavOpen(!navOpen)}
           >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
+            <div className={`hamBox ${navOpen ? "hamBoxOpen" : ""}`}>
+              <spna className={`lineTop ${navOpen ? "spin" : ""}`}></spna>
+              <spna className={`lineBottom ${navOpen ? "spin": ""}`}></spna>
             </div>
           </div>
+
+          {/* menu items */}
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className={`bg-base-100 shadow nav-overlay ${navOpen ? 'top-0' : '-top-full'}`}
           >
-            <li>
-              <a className="justify-between">
-                Profile
-              </a>
-            </li>
-            <li>
-              <a>Dashboard</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
+            <div className="my-2 py-2 px-6 font-semibold border-b-2 hover:border-b-2 hover:text-[#AFD275] hover:border-[#afd275] w-full">
+            <Link
+              to={"/all-courses"}
+            >
+              All Courses
+            </Link>
+            </div>
+            {user && user?.email ? (
+              <>
+                <Link
+                  to={`/dashboard/${
+                    isAdmin
+                      ? "all-users"
+                      : isTutor
+                      ? "all-study-session"
+                      : "student"
+                  }`}
+                >
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img alt={`${user?.name} photo`} src={user?.photoURL} />
+                    </div>
+                  </div>
+                </Link>
+
+                <button
+                  onClick={() => handleSignOut()}
+                  className="ms-2 py-3 px-6 bg-[#AFD275] text-[#2f4021] rounded-md hover:text-[#AFD275] hover:bg-[#2f4021]"
+                >
+                  Log Out
+                </button>
+              </>
+            ) : (
+              <>
+                {/* login and sign up btn */}
+                <div className="font-semibold flex flex-col sm:flex-row">
+                  <Link
+                    to="/login"
+                    className="my-2 py-2 px-6 border-b-2 hover:border-b-2 hover:text-[#AFD275] hover:border-[#afd275]"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to={"/sign-up"}
+                    className=" my-2 py-2 px-6 border-b-2 hover:border-b-2 hover:text-[#AFD275] hover:border-[#afd275]"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </>
+            )}
           </ul>
-        </div> */}
+        </div>
       </div>
     </div>
   );

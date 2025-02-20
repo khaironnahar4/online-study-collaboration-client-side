@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import SectionTitle from "../../../Components/SectionTitle";
 import UseAxiosPublic from "../../../Hooks/UseAxiosPublic";
-// import useTutors from "../../../Hooks/useTutors";
 
 function TutorSection() {
   // const [tutors] = useTutors();

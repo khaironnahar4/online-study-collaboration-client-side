@@ -6,3 +6,59 @@
     background-color: transparent !important;
     color: white !important;
 }
+
+.nav-overlay{
+    position: fixed;
+    background-color: #dadada;
+    z-index: -2;
+    /* top: -100%; */
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 4em;
+    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1 );
+}
+
+.hamBox{
+    position: relative;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    padding: 1.4em;
+}
+
+.lineTop,
+.lineBottom{
+    margin: 0 auto;
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 2px;
+    border-radius: 10px;
+    background-color: #242424;
+    left: 0;
+    right: 0;
+    transform: rotate(0deg);
+    transition: all 0.4s;
+}
+
+.lineTop{
+    top: 1.2em;
+}
+.lineBottom{
+    bottom: 1.2em;
+}
+
+.lineTop.spin{
+    /* top: 2.35em; */
+    top: 1.35em;
+    transform: rotate(135deg)
+}
+.lineBottom.spin{
+    /* bottom: 2.35em; */
+    bottom: 1.35em;
+    transform: rotate(225deg)
+}

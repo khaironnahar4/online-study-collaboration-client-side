@@ -10,13 +10,15 @@ import { useEffect, useState } from "react"
 import auth from "../firebase.config";
 import AuthContext from "../AuthContext/AuthContext";
 import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
+// import { useNavigate } from "react-router-dom";
 
 
 
 function AuthProvider({children}) {
     const [user, setUser] = useState({});
     const [loader, setLoader] = useState(true);
-    const axiosPublic = UseAxiosPublic()
+    const axiosPublic = UseAxiosPublic();
+    // const navigate = useNavigate();
 
     // sign-up
     const handleSignUp = (email, password)=>{
@@ -36,6 +38,7 @@ function AuthProvider({children}) {
         signOut(auth).then(() => {
             // console.log('user sign out successfully');
             setUser({});
+            // navigate('/');
             
           }).catch((error) => {
             console.log(error);
